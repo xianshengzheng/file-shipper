@@ -1,9 +1,10 @@
 package fileshipper.utils;
 
 
+import fileshipper.FileShipper;
 import fileshipper.info.FileOffsetInfo;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
+
 
 import java.io.*;
 import java.nio.file.Files;
@@ -20,7 +21,7 @@ import java.util.Map;
  * @Description: 管理offset的写操作和file对应key的读取
  */
 public class OffsetInfoUtils implements Runnable {
-    private static Logger logger = LogManager.getLogger(OffsetInfoUtils.class.getName());
+    private static Logger LOGGER = Logger.getLogger(OffsetInfoUtils.class);
     public static String ROOTPATH = Paths.get(System.getProperty("user.dir")).toString();
     private static Map offsetMap;
     private static int time;
@@ -51,9 +52,9 @@ public class OffsetInfoUtils implements Runnable {
             freader.close();
         } catch (FileNotFoundException e) {
             //  e.printStackTrace();
-            logger.debug("创建偏移量信息文件");
+            LOGGER.debug("创建偏移量信息文件");
         } catch (Exception e) {
-            logger.error("获取偏移量信息出错");
+            LOGGER.error("获取偏移量信息出错");
         }
 
         return map;
@@ -71,7 +72,7 @@ public class OffsetInfoUtils implements Runnable {
                 outStream = new FileOutputStream(file);
 
                 objectOutputStream = new ObjectOutputStream(outStream);
-                System.out.println(offsetMap);
+
                 objectOutputStream.writeObject(offsetMap);
 
                 objectOutputStream.close();
@@ -113,7 +114,7 @@ public class OffsetInfoUtils implements Runnable {
                 inodeNo = Integer.valueOf(StringMap.toString().split("=")[2].replace(")", ""));
             } catch (IOException e) {
                 // e.printStackTrace();
-                logger.error("inodeManager:file文件没有找到");
+                LOGGER.error("inodeManager:file文件没有找到");
             }
             return Long.valueOf(inodeNo);
         } else if (property.startsWith("Windows")) {

@@ -5,8 +5,8 @@ import fileshipper.info.FileOffsetInfo;
 import fileshipper.utils.FileUtils;
 import fileshipper.utils.MultilineStateMachine;
 import fileshipper.utils.OffsetInfoUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
+
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -48,8 +48,8 @@ public class FileShipper {
     private Map<Long, FileOffsetInfo> offsetMap = new HashMap<Long, FileOffsetInfo>();    //偏移量
     private ExecutorService threadPool;   //线程池
 
-    protected static final Logger LOGGER = LogManager.getLogger("worker");
-
+    //private static Logger LOGGER = LogManager.getLogger(OffsetInfoUtils.class.getName());
+    private static Logger LOGGER = Logger.getLogger(FileShipper.class);
 
     /**
      * @param
@@ -134,6 +134,7 @@ public class FileShipper {
                         Long inode = OffsetInfoUtils.getInode(f);
                         FileOffsetInfo fileOffsetInfo = null;
                         if (FileUtils.isIgnoreFile(f, ignoreFileOfTime * 1000)) {
+
                             LOGGER.debug("文件:'" + f.getName() + "'超过" + ignoreFileOfTime + "秒没有更新，忽略读取");
                             fileOffsetInfo = new FileOffsetInfo(f.length(), new Date(), f.length());
                         } else {
@@ -411,6 +412,7 @@ public class FileShipper {
         fileShipper.register();
         //启动程序
         fileShipper.execute();
+
     }
 
 
