@@ -16,10 +16,10 @@
  > #### 2、进入到你的workspace，执行以下命令下载项目，并且你需要给你的开发工具安装lombok插件，强烈建议使用idea作为你的开发工具。
  > 
  > ```
- > git clone git@github.com:xianshengzheng/FileShipper.git
+ > git clone https://github.com/.../FileShipper.git
  > ```
  > 
- > #### 3、进入到clone好的everyone-java-blog目录里，执行以下命令，将你的副本地址加入到你的远端仓库中。
+ > #### 3、进入到clone好的FileShipper目录里，执行以下命令，将你的副本地址加入到你的远端仓库中。
  > 
  > ```
  > git remote add remote [你fork的地址，比如：git@github.com:your_username/FileShipper.git]
